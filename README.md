@@ -13,7 +13,7 @@ Since this package is not hosted on packagist, you must add it manaually to your
 ],
 "require": {
     //other dependencies
-    "robtesch/iterable-paginator": "dev-master"
+    "robtesch/iterable-paginator": "^1.0-dev"
 }
 ```
 
