@@ -9,7 +9,7 @@ class Paginator
     private int $perPage;
     private int $currentPage;
 
-    public function __construct(iterable $items, int $total, int $perPage, int $currentPage = 1)
+    public function __construct(iterable $items, int $perPage, int $currentPage = 1)
     {
         if (is_array($items)) {
             $this->items = $items;
@@ -18,7 +18,7 @@ class Paginator
         } else {
             throw new \InvalidArgumentException('expected array or Traversable for items.');
         }
-        $this->total = $total;
+        $this->total = count($this->items);
         $this->perPage = $perPage;
         $this->currentPage = $currentPage;
     }

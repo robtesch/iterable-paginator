@@ -11,7 +11,7 @@ class PaginatesArrayTest extends TestCase
     {
         $array = range(1, 100);
 
-        $pagination = (new Paginator($array, count($array), 15))->paginate();
+        $pagination = (new Paginator($array, 15))->paginate();
 
         $this->assertCount(15, $pagination);
     }
@@ -20,7 +20,7 @@ class PaginatesArrayTest extends TestCase
     {
         $array = range(1, 100);
 
-        $pagination = (new Paginator($array, count($array), 15))->paginate(2);
+        $pagination = (new Paginator($array,15))->paginate(2);
 
         $this->assertCount(15, $pagination);
 
@@ -33,7 +33,7 @@ class PaginatesArrayTest extends TestCase
     {
         $array = range(1, 100);
 
-        $pagination = (new Paginator($array, count($array), 15))->paginate(-1);
+        $pagination = (new Paginator($array,  15))->paginate(-1);
 
         $this->assertCount(15, $pagination);
     }
@@ -42,7 +42,7 @@ class PaginatesArrayTest extends TestCase
     {
         $array = range(1, 100);
 
-        $pagination = (new Paginator($array, count($array), 15))->paginate(100);
+        $pagination = (new Paginator($array,  15))->paginate(100);
 
         $this->assertGreaterThan(0, $pagination);
     }
@@ -51,7 +51,7 @@ class PaginatesArrayTest extends TestCase
     {
         $all = ['chimp', 'turtle', 'chicken', 'pig', 'dog', 'frog', 'ostrich', 'cow', 'elephant', 'giraffe'];
 
-        $pagination = (new Paginator($all, count($all), 3, 2));
+        $pagination = (new Paginator($all, 3, 2));
 
         $expected = [
             "current_page" => 2,
@@ -64,5 +64,14 @@ class PaginatesArrayTest extends TestCase
         ];
 
         $this->assertEquals($expected, $pagination->toArray());
+    }
+
+    public function testWorksWhenPerPageIsMoreThanItems(): void
+    {
+        $array = range(1, 100);
+
+        $pagination = (new Paginator($array, 200, 1));
+
+        $this->assertCount(100, $pagination->paginate());
     }
 }
