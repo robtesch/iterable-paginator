@@ -84,6 +84,25 @@ $pagination = (new Paginator($animals, $perPage, $page))->toArray();
 
 ```
 
+You may also pass a function which gets your current page of items. For example, you could be working with a database. When using the paginator in this way, you MUST provide the total number of items you expect.
+This function takes 2 parameters, the offset, and the perPage.
+
+```php
+use Robtesch\IterablePaginator\Paginator;
+
+$total = DB::table('cars')->count();
+$perPage = 15;
+$page = 1;
+
+$items = function($offset, $perPage) {
+  return DB::table('cars')->offset($offset)->limit($perPage)->get();
+};
+
+$pagination = (new Paginator($items,  $perPage, $page, $total))->paginate();
+
+```
+
+
 ### Testing
 
 ```bash
